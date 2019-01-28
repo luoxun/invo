@@ -1,0 +1,12 @@
+{
+    "name": "root/invo",
+    "authors": [
+        {
+            "name": "luoxun",
+            "email": "luoxun007@gmail.com"
+        }
+    ],
+    "require": {
+        "niiknow/bayes": "^1.1"
+    }
+}

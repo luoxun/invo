@@ -1,0 +1,75 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "bc852f126604f7eae81154d873bed8c8",
+    "packages": [
+        {
+            "name": "niiknow/bayes",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/niiknow/bayes.git",
+                "reference": "a21e4481b9ebe0f9233ec4536b97a165d48f562c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/niiknow/bayes/zipball/a21e4481b9ebe0f9233ec4536b97a165d48f562c",
+                "reference": "a21e4481b9ebe0f9233ec4536b97a165d48f562c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Niiknow\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Noogen",
+                    "email": "friends@niiknow.org"
+                }
+            ],
+            "description": "a machine learning lib",
+            "keywords": [
+                "bayes",
+                "classifier",
+                "lib",
+                "library",
+                "machine-learning",
+                "machine-learning-algorithm",
+                "naive",
+                "naive-bayes",
+                "naive-bayes-algorithm",
+                "naive-bayes-classification",
+                "naive-bayes-classifier",
+                "naivebayes",
+                "niiknow",
+                "php",
+                "php-library",
+                "php-ml"
+            ],
+            "time": "2019-01-18T04:04:19+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
