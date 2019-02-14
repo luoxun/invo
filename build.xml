@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="test.com" basedir="./" default="start">
+    <target name="start">
+        <echo msg="start..." />
+    </target>
+</project>
