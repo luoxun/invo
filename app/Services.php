@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 use Phalcon\Mvc\View;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Mvc\Dispatcher;
@@ -22,15 +24,17 @@ class Services extends \Base\Services
         /**
          * Check if the user is allowed to access certain action using the SecurityPlugin
          */
-        $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin);
+        $eventsManager->attach('dispatch:beforeExecuteRoute', new Plugins\SecurityPlugin);
 
         /**
          * Handle exceptions and not-found exceptions using NotFoundPlugin
          */
-        $eventsManager->attach('dispatch:beforeException', new NotFoundPlugin);
+        $eventsManager->attach('dispatch:beforeException', new Plugins\NotFoundPlugin);
 
         $dispatcher = new Dispatcher;
         $dispatcher->setEventsManager($eventsManager);
+        $dispatcher->setDefaultNamespace('App\Controllers');
+
 
         return $dispatcher;
     }
@@ -45,35 +49,38 @@ class Services extends \Base\Services
         return $url;
     }
 
-    protected function initView()
-    {
-        $view = new View();
-
-        $view->setViewsDir(APP_PATH . $this->get('config')->application->viewsDir);
-
-        $view->registerEngines([
-            ".volt" => 'volt'
-        ]);
-
-        return $view;
-    }
+//    protected function initView()
+//    {
+//    //    $view = new View\Simple();
+//        // $view = new View();
+//
+//        //var_dump("dd");exit;
+//
+////        $view->setViewsDir(APP_PATH . $this->get('config')->application->viewsDir);
+////
+////        $view->registerEngines([
+////            ".volt" => 'volt'
+////        ]);
+//
+//     //   return $view;
+//    }
 
     /**
      * Setting up volt
      */
-    protected function initSharedVolt($view, $di)
-    {
-        $volt = new VoltEngine($view, $di);
-
-        $volt->setOptions([
-            "compiledPath" => APP_PATH . "cache/volt/"
-        ]);
-
-        $compiler = $volt->getCompiler();
-        $compiler->addFunction('is_a', 'is_a');
-
-        return $volt;
-    }
+//    protected function initSharedVolt($view, $di)
+//    {
+//        $volt = new VoltEngine($view, $di);
+//
+//        $volt->setOptions([
+//            "compiledPath" => APP_PATH . "cache/volt/"
+//        ]);
+//
+//        $compiler = $volt->getCompiler();
+//        $compiler->addFunction('is_a', 'is_a');
+//
+//        return $volt;
+//    }
 
     /**
      * Database connection is created based in the parameters defined in the configuration file
@@ -111,19 +118,19 @@ class Services extends \Base\Services
      */
     protected function initFlash()
     {
-        return new FlashSession([
-            'error' => 'alert alert-danger',
-            'success' => 'alert alert-success',
-            'notice' => 'alert alert-info',
-            'warning' => 'alert alert-warning'
-        ]);
+//        return new FlashSession([
+//            'error' => 'alert alert-danger',
+//            'success' => 'alert alert-success',
+//            'notice' => 'alert alert-info',
+//            'warning' => 'alert alert-warning'
+//        ]);
     }
 
     /**
      * Register a user component
      */
-    protected function initElements()
-    {
-        return new Elements();
-    }
+//    protected function initElements()
+//    {
+//        // return new Elements();
+//    }
 }

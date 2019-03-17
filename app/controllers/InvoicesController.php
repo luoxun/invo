@@ -1,4 +1,5 @@
 <?php
+namespace App\Controllers;
 
 use Phalcon\Flash;
 use Phalcon\Session;

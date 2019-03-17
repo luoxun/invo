@@ -1,13 +1,21 @@
 <?php
 
-use Phalcon\Mvc\Controller;
+namespace App\Controllers;
 
-class ControllerBase extends Controller
+use Phalcon\Mvc\Controller as PhalconController;
+
+class ControllerBase extends PhalconController
 {
 
-    protected function initialize()
+//    protected function initialize()
+//    {
+//        //$this->tag->prependTitle('INVO | ');
+//       // $this->view->setTemplateAfter('main');
+//    }
+    public function indexAction()
     {
-        $this->tag->prependTitle('INVO | ');
-        $this->view->setTemplateAfter('main');
+        //echo "404";
+        return  getResponse()->setStatusCode(404)->setContent("404");
+
     }
 }

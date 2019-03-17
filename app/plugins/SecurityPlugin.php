@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Plugins;
+
 use Phalcon\Acl;
 use Phalcon\Acl\Role;
 use Phalcon\Acl\Resource;
@@ -22,73 +24,73 @@ class SecurityPlugin extends Plugin
 	 */
 	public function getAcl()
 	{
-		if (!isset($this->persistent->acl)) {
-
-			$acl = new AclList();
-
-			$acl->setDefaultAction(Acl::DENY);
-
-			// Register roles
-			$roles = [
-				'users'  => new Role(
-					'Users',
-					'Member privileges, granted after sign in.'
-				),
-				'guests' => new Role(
-					'Guests',
-					'Anyone browsing the site who is not signed in is considered to be a "Guest".'
-				)
-			];
-
-			foreach ($roles as $role) {
-				$acl->addRole($role);
-			}
-
-			//Private area resources
-			$privateResources = [
-				'companies'    => ['index', 'search', 'new', 'edit', 'save', 'create', 'delete'],
-				'products'     => ['index', 'search', 'new', 'edit', 'save', 'create', 'delete'],
-				'producttypes' => ['index', 'search', 'new', 'edit', 'save', 'create', 'delete'],
-				'invoices'     => ['index', 'profile']
-			];
-			foreach ($privateResources as $resource => $actions) {
-				$acl->addResource(new Resource($resource), $actions);
-			}
-
-			//Public area resources
-			$publicResources = [
-				'index'      => ['index'],
-				'about'      => ['index'],
-				'register'   => ['index'],
-				'errors'     => ['show401', 'show404', 'show500'],
-				'session'    => ['index', 'register', 'start', 'end'],
-				'contact'    => ['index', 'send']
-			];
-			foreach ($publicResources as $resource => $actions) {
-				$acl->addResource(new Resource($resource), $actions);
-			}
-
-			//Grant access to public areas to both users and guests
-			foreach ($roles as $role) {
-				foreach ($publicResources as $resource => $actions) {
-					foreach ($actions as $action){
-						$acl->allow($role->getName(), $resource, $action);
-					}
-				}
-			}
-
-			//Grant access to private area to role Users
-			foreach ($privateResources as $resource => $actions) {
-				foreach ($actions as $action){
-					$acl->allow('Users', $resource, $action);
-				}
-			}
-
-			//The acl is stored in session, APC would be useful here too
-			$this->persistent->acl = $acl;
-		}
-
-		return $this->persistent->acl;
+//		if (!isset($this->persistent->acl)) {
+//
+//			$acl = new AclList();
+//
+//			$acl->setDefaultAction(Acl::DENY);
+//
+//			// Register roles
+//			$roles = [
+//				'users'  => new Role(
+//					'Users',
+//					'Member privileges, granted after sign in.'
+//				),
+//				'guests' => new Role(
+//					'Guests',
+//					'Anyone browsing the site who is not signed in is considered to be a "Guest".'
+//				)
+//			];
+//
+//			foreach ($roles as $role) {
+//				$acl->addRole($role);
+//			}
+//
+//			//Private area resources
+//			$privateResources = [
+//				'companies'    => ['index', 'search', 'new', 'edit', 'save', 'create', 'delete'],
+//				'products'     => ['index', 'search', 'new', 'edit', 'save', 'create', 'delete'],
+//				'producttypes' => ['index', 'search', 'new', 'edit', 'save', 'create', 'delete'],
+//				'invoices'     => ['index', 'profile']
+//			];
+//			foreach ($privateResources as $resource => $actions) {
+//				$acl->addResource(new Resource($resource), $actions);
+//			}
+//
+//			//Public area resources
+//			$publicResources = [
+//				'index'      => ['index'],
+//				'about'      => ['index'],
+//				'register'   => ['index'],
+//				'errors'     => ['show401', 'show404', 'show500'],
+//				'session'    => ['index', 'register', 'start', 'end'],
+//				'contact'    => ['index', 'send']
+//			];
+//			foreach ($publicResources as $resource => $actions) {
+//				$acl->addResource(new Resource($resource), $actions);
+//			}
+//
+//			//Grant access to public areas to both users and guests
+//			foreach ($roles as $role) {
+//				foreach ($publicResources as $resource => $actions) {
+//					foreach ($actions as $action){
+//						$acl->allow($role->getName(), $resource, $action);
+//					}
+//				}
+//			}
+//
+//			//Grant access to private area to role Users
+//			foreach ($privateResources as $resource => $actions) {
+//				foreach ($actions as $action){
+//					$acl->allow('Users', $resource, $action);
+//				}
+//			}
+//
+//			//The acl is stored in session, APC would be useful here too
+//			$this->persistent->acl = $acl;
+//		}
+//
+//		return $this->persistent->acl;
 	}
 
 	/**
@@ -100,35 +102,36 @@ class SecurityPlugin extends Plugin
 	 */
 	public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
 	{
-		$auth = $this->session->get('auth');
-		if (!$auth){
-			$role = 'Guests';
-		} else {
-			$role = 'Users';
-		}
-
-		$controller = $dispatcher->getControllerName();
-		$action = $dispatcher->getActionName();
-
-		$acl = $this->getAcl();
-
-		if (!$acl->isResource($controller)) {
-			$dispatcher->forward([
-				'controller' => 'errors',
-				'action'     => 'show404'
-			]);
-
-			return false;
-		}
-
-		$allowed = $acl->isAllowed($role, $controller, $action);
-		if (!$allowed) {
-			$dispatcher->forward([
-				'controller' => 'errors',
-				'action'     => 'show401'
-			]);
-                        $this->session->destroy();
-			return false;
-		}
+//		$auth = $this->session->get('auth');
+//		if (!$auth){
+//			$role = 'Guests';
+//		} else {
+//			$role = 'Users';
+//		}
+//
+//		$controller = $dispatcher->getControllerName();
+//		$action = $dispatcher->getActionName();
+//
+//		var_dump($controller);
+//		$acl = $this->getAcl();
+//
+//		if (!$acl->isResource($controller)) {
+//			$dispatcher->forward([
+//				'controller' => 'errors',
+//				'action'     => 'show404'
+//			]);
+//
+//			return false;
+//		}
+//
+//		$allowed = $acl->isAllowed($role, $controller, $action);
+//		if (!$allowed) {
+//			$dispatcher->forward([
+//				'controller' => 'errors',
+//				'action'     => 'show401'
+//			]);
+//                        $this->session->destroy();
+//			return false;
+//		}
 	}
 }

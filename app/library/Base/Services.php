@@ -17,6 +17,7 @@ class Services extends \Phalcon\DI\FactoryDefault
         $reflection = new \ReflectionObject($this);
         $methods = $reflection->getMethods();
 
+
         foreach ($methods as $method) {
 
             if ((strlen($method->name) > 10) && (strpos($method->name, 'initShared') === 0)) {

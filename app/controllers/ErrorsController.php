@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Controllers;
+
 /**
  * ErrorsController
  *
@@ -7,11 +9,11 @@
  */
 class ErrorsController extends ControllerBase
 {
-    public function initialize()
-    {
-        $this->tag->setTitle('Oops!');
-        parent::initialize();
-    }
+//    public function initialize()
+//    {
+//        $this->tag->setTitle('Oops!');
+//        parent::initialize();
+//    }
 
     public function show404Action()
     {
