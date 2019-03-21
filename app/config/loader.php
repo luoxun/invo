@@ -6,13 +6,20 @@ $loader = new \Phalcon\Loader();
  * We're a registering a set of directories taken from the configuration file
  */
 
-
 $loader->registerDirs([
     APP_PATH . $config->application->controllersDir,
     APP_PATH . $config->application->pluginsDir,
     APP_PATH . $config->application->libraryDir,
     APP_PATH . $config->application->modelsDir,
-    APP_PATH . $config->application->formsDir
+    APP_PATH . $config->application->formsDir,
+])->register();
+
+$loader->registerDirs([
+    APP_PATH . 'app/controllers/',
+    APP_PATH . 'app/plugins/',
+    APP_PATH . 'app/library/',
+    APP_PATH . 'app/models/',
+    APP_PATH . 'app/forms/',
 ])->register();
 
 $loader->registerClasses([
@@ -27,10 +34,9 @@ $loader->registerClasses([
 //]
 //);
 
-
 $loader->registerNamespaces(
     [
-        'App\Controllers' => $config->application->controllersDir,
+        'App\Controllers' => 'app/controllers/',
         //'Store\Admin\Models'      => '../bundles/admin/models/',
     ]
 );
@@ -38,11 +44,9 @@ $loader->registerNamespaces(
 //$loader->register();
 // var_dump($config->application->controllersDir);
 
-
 //$router = new \Phalcon\
 
 //
-use Phalcon\Mvc\Router;
 //
 //// Create the router
 //$router = new Router();
@@ -65,4 +69,4 @@ use Phalcon\Mvc\Router;
 //var_dump($di);exit;
 //$router->handle();
 
-require_once (APP_PATH."app/plugins/helperfun.php");
+require_once APP_PATH . "app/plugins/helperfun.php";

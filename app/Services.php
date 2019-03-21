@@ -2,15 +2,10 @@
 
 namespace App;
 
-use Phalcon\Mvc\View;
-use Phalcon\DI\FactoryDefault;
-use Phalcon\Mvc\Dispatcher;
-use Phalcon\Mvc\Url as UrlProvider;
-use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
-use Phalcon\Mvc\Model\Metadata\Memory as MetaData;
-use Phalcon\Session\Adapter\Files as SessionAdapter;
-use Phalcon\Flash\Session as FlashSession;
 use Phalcon\Events\Manager as EventsManager;
+use Phalcon\Mvc\Dispatcher;
+use Phalcon\Mvc\Model\Metadata\Memory as MetaData;
+use Phalcon\Mvc\Url as UrlProvider;
 
 class Services extends \Base\Services
 {
@@ -33,8 +28,8 @@ class Services extends \Base\Services
 
         $dispatcher = new Dispatcher;
         $dispatcher->setEventsManager($eventsManager);
-        $dispatcher->setDefaultNamespace('App\Controllers');
 
+        $dispatcher->setDefaultNamespace('App\Controllers');
 
         return $dispatcher;
     }
@@ -50,37 +45,37 @@ class Services extends \Base\Services
     }
 
 //    protected function initView()
-//    {
-//    //    $view = new View\Simple();
-//        // $view = new View();
-//
-//        //var_dump("dd");exit;
-//
-////        $view->setViewsDir(APP_PATH . $this->get('config')->application->viewsDir);
-////
-////        $view->registerEngines([
-////            ".volt" => 'volt'
-////        ]);
-//
-//     //   return $view;
-//    }
+    //    {
+    //    //    $view = new View\Simple();
+    //        // $view = new View();
+    //
+    //        //var_dump("dd");exit;
+    //
+    ////        $view->setViewsDir(APP_PATH . $this->get('config')->application->viewsDir);
+    ////
+    ////        $view->registerEngines([
+    ////            ".volt" => 'volt'
+    ////        ]);
+    //
+    //     //   return $view;
+    //    }
 
     /**
      * Setting up volt
      */
 //    protected function initSharedVolt($view, $di)
-//    {
-//        $volt = new VoltEngine($view, $di);
-//
-//        $volt->setOptions([
-//            "compiledPath" => APP_PATH . "cache/volt/"
-//        ]);
-//
-//        $compiler = $volt->getCompiler();
-//        $compiler->addFunction('is_a', 'is_a');
-//
-//        return $volt;
-//    }
+    //    {
+    //        $volt = new VoltEngine($view, $di);
+    //
+    //        $volt->setOptions([
+    //            "compiledPath" => APP_PATH . "cache/volt/"
+    //        ]);
+    //
+    //        $compiler = $volt->getCompiler();
+    //        $compiler->addFunction('is_a', 'is_a');
+    //
+    //        return $volt;
+    //    }
 
     /**
      * Database connection is created based in the parameters defined in the configuration file
@@ -91,6 +86,8 @@ class Services extends \Base\Services
 
         $dbClass = 'Phalcon\Db\Adapter\Pdo\\' . $config['adapter'];
         unset($config['adapter']);
+
+        var_dump($dbClass);
 
         return new $dbClass($config);
     }
@@ -108,9 +105,9 @@ class Services extends \Base\Services
      */
     protected function initSession()
     {
-        $session = new SessionAdapter();
-        $session->start();
-        return $session;
+        // $session = new SessionAdapter();
+        // $session->start();
+        // return $session;
     }
 
     /**
@@ -119,18 +116,18 @@ class Services extends \Base\Services
     protected function initFlash()
     {
 //        return new FlashSession([
-//            'error' => 'alert alert-danger',
-//            'success' => 'alert alert-success',
-//            'notice' => 'alert alert-info',
-//            'warning' => 'alert alert-warning'
-//        ]);
+        //            'error' => 'alert alert-danger',
+        //            'success' => 'alert alert-success',
+        //            'notice' => 'alert alert-info',
+        //            'warning' => 'alert alert-warning'
+        //        ]);
     }
 
     /**
      * Register a user component
      */
 //    protected function initElements()
-//    {
-//        // return new Elements();
-//    }
+    //    {
+    //        // return new Elements();
+    //    }
 }
