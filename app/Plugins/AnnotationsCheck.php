@@ -16,46 +16,54 @@ use Phalcon\Mvc\User\Plugin;
 use Phalcon\Mvc\Dispatcher;
 
 
-class RestfulMethodsCheck extends Plugin
+class AnnotationsCheck extends Plugin
 {
     /**
-     * Check the requested method against an annotation on the action (if any) and fail it if its not matching.
-     *
-     * @param Event $event
+     * @param Event      $event
      * @param Dispatcher $dispatcher
      * @return bool
+     * @throws \App\Exceptions\WantJsonException
      */
     public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
     {
 
-//       var_dump($dispatcher->getActiveController());
-//       exit;
+
         $annotations = $this->annotations->getMethod($dispatcher->getControllerClass(), $dispatcher->getActiveMethod());
-        $bool =     $annotations->has("Cache");
+
+
+        // 如果这个要json 的格式
+        if($annotations->has("WantJson") and empty(getRequestJson())) {
+
+            throw  new \App\Exceptions\WantJsonException("必须json");
+
+        }
 
         // 检查是否方法中带有注释名称‘Cache’的注释单元
         if ($annotations->has("Cache")) {
             // 这个方法带有‘Cache’注释单元
             $annotation = $annotations->get("Cache");
 
-          //  var_dump($annotation);exit;
-
             // 获取注释单元的‘lifetime’参数
             $lifetime = $annotation->getNamedParameter("lifetime");
-
-          //  var_dump($lifetime);
 
             $options = [
                 "lifetime" => $lifetime,
             ];
 
+            //            var_dump($dispatcher->getParams());
+            //            var_dump($annotation);exit;
+
             // 检查注释单元中是否有用户定义的‘key’参数
             if ($annotation->hasArgument("key")) {
-                $options["key"] = $annotation->hasArgument("key");
+                $options["key"] = $annotation->getNamedParameter("key");
             }
 
+            //var_dump($options);
             // 为当前dispatcher访问的方法开启cache
-            $this->view->cache($options);
+            // $this->view->cache($options);
         }
+
+
+        return false;
     }
 }

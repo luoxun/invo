@@ -2,13 +2,41 @@
 
 namespace Base;
 
+use Phalcon\Config;
+use Phalcon\Db\Adapter\Pdo\Mysql;
+
 class Services extends \Phalcon\DI\FactoryDefault
 {
     public function __construct($config)
     {
         parent::__construct();
+        // 主要是DB
+        //$this->setShared('config', $config);
 
-        $this->setShared('config', $config);
+        $database = include  APP_PATH.'app/config/database.php';
+
+        $config = [
+            "databases" => $database,
+        ];
+
+        /**
+         * 把DB setShared
+         */
+        foreach ($config['databases'] as $key => $value)
+        {
+
+            $this->setShared(
+                $key, function () use ($value) {
+                    $params = $value;
+                    return new Mysql($value);
+                }
+            );
+        }
+
+
+        //$this->setShared('config', new Config($config));
+
+
         $this->bindServices();
     }
 

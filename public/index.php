@@ -8,25 +8,28 @@ use Phalcon\Mvc\Router\Annotations as RouterAnnotations;
 require __DIR__ . '/../vendor/autoload.php';
 
 try {
-//echo  "{\"code\":\"200\",\"message\":\"success\",\"data\":{\"Id_P\":\"1\",\"LastName\":\"luoxun\",\"FirstName\":\"xun\",\"Address\":\"Address\",\"City\":\"chengdu\"}}";exit;
+
     define('APP_PATH', realpath('..') . '/');
 
     /**
      * Read the configuration
      */
     $config = new ConfigIni(APP_PATH . '.env');
-    if (is_readable(APP_PATH . 'app/config/config.ini.dev')) {
-//        $override = new ConfigIni(APP_PATH . 'app/config/config.ini.dev');
-//        $config->merge($override);
-    }
 
+
+    foreach ($config as $key => $value)
+    {
+        // 读取到环境变量
+        putenv($key.'='.$value);
+    }
 
     /**
      * 载入配置
+     *
      * @var [type]
      */
-//    $dotenv = Dotenv\Dotenv::create(APP_PATH);
-//    $dotenv->load();
+    //    $dotenv = Dotenv\Dotenv::create(APP_PATH);
+    //    $dotenv->load();
 
     //var_dump($config);exit;
     //echo "{\"code\":\"200\",\"message\":\"success\",\"data\":{\"google\":\"googldede\"}}";exit;
@@ -34,34 +37,34 @@ try {
     /**
      * Auto-loader configuration
      */
-    require APP_PATH . 'app/config/loader.php';
+    include APP_PATH . 'app/config/loader.php';
 
     $application = new Application(new \App\Services($config));
 
-//    echo "{\"code\":\"200\",\"message\":\"success\",\"data\":{\"google\":\"googldede\"}}";exit;
-//
+    //    echo "{\"code\":\"200\",\"message\":\"success\",\"data\":{\"google\":\"googldede\"}}";exit;
+    //
     $application->useImplicitView(false);
     //$application->router;
   
     $services = $application->getDI();
 
 
-//
-//    $services["router"] = function () {
-//        // Use the annotations router. We're passing false as we don't want the router to add its default patterns
-//        $router = new RouterAnnotations(false);
-//       // $router = new  Phalcon\Mvc\Router(false);
-//
-//        // Read the annotations from ProductsController if the URI starts with /api/products
-//        //$router->addResource("Products", "/api/products");
-//        $router->addResource("Index", "/api/products");
-//
-//        return $router;
-//    };
+    //
+    //    $services["router"] = function () {
+    //        // Use the annotations router. We're passing false as we don't want the router to add its default patterns
+    //        $router = new RouterAnnotations(false);
+    //       // $router = new  Phalcon\Mvc\Router(false);
+    //
+    //        // Read the annotations from ProductsController if the URI starts with /api/products
+    //        //$router->addResource("Products", "/api/products");
+    //        $router->addResource("Index", "/api/products");
+    //
+    //        return $router;
+    //    };
     $services->set(
         "router",
         function () {
-            require __DIR__ . "/../app/routes/router.php";
+            include __DIR__ . "/../app/routes/router.php";
 
             return $router;
         }

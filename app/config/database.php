@@ -3,12 +3,16 @@ return [
 
     "default" => [
 
-        "DB_HOST" => getenv("DB_HOST", ""),
+        "host" => getenv("DB_HOST", ""),
 
-        "DB_USERNAME" => getenv("DB_USERNAME", ""),
+        "username" => getenv("DB_USERNAME", ""),
 
-        "DB_PASSWORD" => getenv("DB_PASSWORD", ""),
+        "password" => getenv("DB_PASSWORD", ""),
 
-        "DB_DBNAME" => getenv("DB_DBNAME", ""),
+        "dbname" => getenv("DB_DBNAME", ""),
+
+        "charset" => 'utf8',
+
+        "port"=>3306,
     ],
 ];
