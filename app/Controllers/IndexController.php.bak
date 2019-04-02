@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Controllers;
+
+use App\Models\Wxusers;
+/**
+ * @RoutePrefix("/api/products")
+ */
+class IndexController extends ControllerBase
+{
+
+    public function indexAction()
+    {
+        //echo  "{\"code\":\"200\",\"message\":\"success\",\"data\":{\"Id_P\":\"1\",\"LastName\":\"luoxun\",\"FirstName\":\"xun\",\"Address\":\"Address\",\"City\":\"chengdu\"}}";exit;
+
+        //return SuccessResponse((Wxusers::findFirst()->toArray()));
+
+        //var_dump("google");exit;
+        var_dump($this->router);
+        return SuccessResponse(["work" => true]);
+    }
+
+    public function showAction()
+    {
+        return SuccessResponse(["google" => "showAction"]);
+    }
+
+    /**
+     * This is a comment
+     *
+     * @Cache(lifetime=86400)
+     */
+    public function showAllAction()
+    {
+        return SuccessResponse(["google" => "showAllAction"]);
+    }
+
+
+    /**
+     * @Get(
+     *     "/edit/{id:[0-9]+}",
+     *     name="edit-robot"
+     * )
+     */
+    public function editAction()
+    {
+        return SuccessResponse(["google" => rand(1,100)]);
+
+    }
+}

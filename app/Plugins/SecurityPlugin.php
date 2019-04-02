@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Plugins;
+namespace App\plugins;
 
 use Phalcon\Acl;
 use Phalcon\Acl\Role;
@@ -102,6 +102,23 @@ class SecurityPlugin extends Plugin
 	 */
 	public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
 	{
+
+//	    var_dump($dispatcher->getControllerClass(), $dispatcher->getActiveMethod());
+//	    var_dump($this->annotations);
+//        $annotations = $this->annotations->getMethod($dispatcher->getControllerName(), $dispatcher->getActiveMethod());
+//        if ($annotations->has('HTTPMethods')) {
+//            $annotation = $annotations->get('HTTPMethods');
+//            if (!in_array($this->request->getMethod(), array_change_key_case($annotation->getArguments(), CASE_UPPER))) {
+//                $this->response->setStatusCode(405, 'Method Not Allowed');
+//                $this->response->setHeader('Allow', implode(',', $annotation->getArguments()));
+//                $this->response->send();
+//                return false;
+//            }
+//        }
+//        return true;
+
+
+
 //		$auth = $this->session->get('auth');
 //		if (!$auth){
 //			$role = 'Guests';

@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Plugins\RestfulMethodsCheck;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaData;
 use Phalcon\Mvc\Url as UrlProvider;
+use Phalcon\Mvc\User\Plugin;
+use Phalcon\Mvc\View;
 
 class Services extends \Base\Services
 {
@@ -15,11 +18,17 @@ class Services extends \Base\Services
     protected function initDispatcher()
     {
         $eventsManager = new EventsManager;
+       // echo  "{\"code\":\"200\",\"message\":\"success\",\"data\":{\"Id_P\":\"1\",\"LastName\":\"luoxun\",\"FirstName\":\"xun\",\"Address\":\"Address\",\"City\":\"chengdu\"}}";exit;
 
+
+       // $pluginRestfulMethods = new RestfulMethodsCheck();
+       //Listen for events produced in the dispatcher using the Restful Methods plugin
+       $eventsManager->attach('dispatch', new RestfulMethodsCheck);
+       
         /**
          * Check if the user is allowed to access certain action using the SecurityPlugin
          */
-        $eventsManager->attach('dispatch:beforeExecuteRoute', new Plugins\SecurityPlugin);
+         $eventsManager->attach('dispatch:beforeExecuteRoute', new Plugins\SecurityPlugin);
 
         /**
          * Handle exceptions and not-found exceptions using NotFoundPlugin
@@ -31,34 +40,50 @@ class Services extends \Base\Services
 
         $dispatcher->setDefaultNamespace('App\Controllers');
 
+
+
+
+
+        // Create an instance of the dispatcher.
+        //$dispatcher = new Phalcon\Mvc\Dispatcher();
+        //Bind the EventsManager to the Dispatcher
+        $dispatcher->setEventsManager($eventsManager);
+
+
+
         return $dispatcher;
     }
 
     /**
      * The URL component is used to generate all kind of urls in the application
      */
-    protected function initUrl()
-    {
-        $url = new UrlProvider();
-        $url->setBaseUri($this->get('config')->application->baseUri);
-        return $url;
-    }
+//    protected function initUrl()
+//    {
+//        $url = new UrlProvider();
+//        $url->setBaseUri($this->get('config')->application->baseUri);
+//        return $url;
+//    }
 
-//    protected function initView()
-    //    {
-    //    //    $view = new View\Simple();
-    //        // $view = new View();
-    //
-    //        //var_dump("dd");exit;
-    //
-    ////        $view->setViewsDir(APP_PATH . $this->get('config')->application->viewsDir);
-    ////
-    ////        $view->registerEngines([
-    ////            ".volt" => 'volt'
-    ////        ]);
-    //
-    //     //   return $view;
-    //    }
+    protected function initView()
+        {
+           $view = new View\Simple();
+//            $view->setViewsDir(APP_PATH . $this->get('config')->application->viewsDir);
+//                   $view->registerEngines([
+//           ".volt" => 'volt'
+//        ]);
+           return $view;
+//             $view = new View();
+//
+//            //var_dump("dd");exit;
+//
+//    //        $view->setViewsDir(APP_PATH . $this->get('config')->application->viewsDir);
+//    //
+//    //        $view->registerEngines([
+//    //            ".volt" => 'volt'
+//    //        ]);
+//
+//            return $view;
+        }
 
     /**
      * Setting up volt
@@ -87,7 +112,7 @@ class Services extends \Base\Services
         $dbClass = 'Phalcon\Db\Adapter\Pdo\\' . $config['adapter'];
         unset($config['adapter']);
 
-        var_dump($dbClass);
+        //var_dump($dbClass);
 
         return new $dbClass($config);
     }

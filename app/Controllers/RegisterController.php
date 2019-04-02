@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Controllers;
 /**
  * SessionController
  *
@@ -10,7 +11,7 @@ class RegisterController extends ControllerBase
     public function initialize()
     {
         $this->tag->setTitle('Sign Up/Sign In');
-        parent::initialize();
+        //parent::initialize();
     }
 
     /**
@@ -18,6 +19,7 @@ class RegisterController extends ControllerBase
      */
     public function indexAction()
     {
+        echo "dasf";exit;
 //        $form = new RegisterForm;
 //
 //        if ($this->request->isPost()) {

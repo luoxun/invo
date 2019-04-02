@@ -6,25 +6,25 @@ $loader = new \Phalcon\Loader();
  * We're a registering a set of directories taken from the configuration file
  */
 
-$loader->registerDirs([
-    APP_PATH . $config->application->controllersDir,
-    APP_PATH . $config->application->pluginsDir,
-    APP_PATH . $config->application->libraryDir,
-    APP_PATH . $config->application->modelsDir,
-    APP_PATH . $config->application->formsDir,
-])->register();
+// $loader->registerDirs([
+//     APP_PATH . $config->application->controllersDir,
+//     APP_PATH . $config->application->pluginsDir,
+//     APP_PATH . $config->application->libraryDir,
+//     APP_PATH . $config->application->modelsDir,
+//     APP_PATH . $config->application->formsDir,
+// ])->register();
 
 $loader->registerDirs([
-    APP_PATH . 'app/controllers/',
-    APP_PATH . 'app/plugins/',
+    APP_PATH . 'app/Controllers/',
+    APP_PATH . 'app/Plugins/',
     APP_PATH . 'app/library/',
-    APP_PATH . 'app/models/',
-    APP_PATH . 'app/forms/',
+    APP_PATH . 'app/Models/',
+    APP_PATH . 'app/Forms/',
 ])->register();
 
 $loader->registerClasses([
-    'Services' => APP_PATH . 'app/Services.php',
-    'Services' => APP_PATH . 'app/Services.php',
+    'App\Services' => APP_PATH . 'app/Services.php',
+
 
 ]);
 
@@ -36,8 +36,11 @@ $loader->registerClasses([
 
 $loader->registerNamespaces(
     [
-        'App\Controllers' => 'app/controllers/',
-        //'Store\Admin\Models'      => '../bundles/admin/models/',
+        'App\Controllers' => '../app/Controllers/',
+        'App\Models' => '../app/Models/',
+        'App\Plugins' => '../app/Plugins/',
+        'App' => '../app/',
+
     ]
 );
 
@@ -69,4 +72,6 @@ $loader->registerNamespaces(
 //var_dump($di);exit;
 //$router->handle();
 
-require_once APP_PATH . "app/plugins/helperfun.php";
+
+
+require APP_PATH . "app/Plugins/helperfun.php";
