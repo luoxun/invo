@@ -1,14 +1,15 @@
 <?php
+
 error_reporting(E_ALL);
+
 ini_set('display_errors', 1);
+
 use Phalcon\Config\Adapter\Ini as ConfigIni;
 use Phalcon\Mvc\Application;
-use Phalcon\Mvc\Router\Annotations as RouterAnnotations;
 
 require __DIR__ . '/../vendor/autoload.php';
 
 try {
-
     define('APP_PATH', realpath('..') . '/');
 
     /**
@@ -16,11 +17,9 @@ try {
      */
     $config = new ConfigIni(APP_PATH . '.env');
 
-
-    foreach ($config as $key => $value)
-    {
+    foreach ($config as $key => $value) {
         // 读取到环境变量
-        putenv($key.'='.$value);
+        putenv($key . '=' . $value);
     }
 
     /**
@@ -28,8 +27,8 @@ try {
      *
      * @var [type]
      */
-    //    $dotenv = Dotenv\Dotenv::create(APP_PATH);
-    //    $dotenv->load();
+    // $dotenv = Dotenv\Dotenv::create(APP_PATH);
+    // $dotenv->load();
 
     //var_dump($config);exit;
     //echo "{\"code\":\"200\",\"message\":\"success\",\"data\":{\"google\":\"googldede\"}}";exit;
@@ -45,9 +44,8 @@ try {
     //
     $application->useImplicitView(false);
     //$application->router;
-  
-    $services = $application->getDI();
 
+    $services = $application->getDI();
 
     //
     //    $services["router"] = function () {
@@ -70,7 +68,6 @@ try {
         }
     );
     // var_dump($services['router']);exit;
-
 
     //var_dump($services);exit;
 

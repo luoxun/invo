@@ -14,4 +14,14 @@ use Phalcon\Dispatcher;
 use Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
 use Phalcon\Mvc\Dispatcher as MvcDispatcher;
 
-
+/**
+ *
+ */
+class CustHandlerExp extends
+{
+    
+    function __construct(argument)
+    {
+        # code...
+    }
+}
